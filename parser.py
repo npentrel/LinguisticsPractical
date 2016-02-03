@@ -46,6 +46,8 @@ def subfolder_names(top_folder):
 	return all_data_files
 
 def main():
+	data = {}
+
 	mainfolder = "WSJ-2-12"
 	data_files = subfolder_names(mainfolder)
 
@@ -53,16 +55,34 @@ def main():
 	for f in data_files:
 		preprocessed_chunks.extend(parse_single_file(f))
 
+	for chunk in preprocessed_chunks:
+		for word in chunk:
+			both = re.findall("[^\s/]+", word, re.DOTALL)
+			key = both[0]
+			if data.has_key(key) :
+				if not word in data[key] : 
+	 				data[key].append(word)
+			else :
+				data[key] = [word]
+
+	
+
+	# if (LOGGING):
+	# 	for w in sorted(data):
+	# 		print w + " : " + str(data[w]) 
+
 	# if (LOGGING):
 	# 	for pc in preprocessed_chunks:
 	# 		print pc
 	# 		print "-----"	
 
-	# parse_single_file(data_files[0])
 
-	pos = Pos("test", [], 0)
- 	pos.display()
-
-	print "Ending execution..."
+	# pos = Pos("test", [], 0)
+ # 	pos.display()
+ # 	data['test'] = pos
+ # 	print data['test'].display()
+ # 	print data.has_key('test')
+ # 	print data.has_key('test2')
+	# print "Ending execution..."
 
 main()
