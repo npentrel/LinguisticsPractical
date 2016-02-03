@@ -1,17 +1,32 @@
+#!/usr/bin/python
+
 import os
 import re
+from pos import *
 
 LOGGING = True
 
+def removeEmptyChunks(chunks_input):
+	chunks_output = []
+	for chunk in chunks_input:
+		if chunk:
+			chunks_output.append(chunk)
+	return chunks_output
 
 def parse_single_file(fname):
 	with open(fname) as f:
 	    content = f.readlines()
 	content = "".join(content)
+	chunks = [x for x in content.split("======================================")]
+	processed_chunks = []
+	for chunk in chunks:
+		matches = re.findall("[^\s]+/[^\s]+", chunk, re.DOTALL)
+		processed_chunks.append(matches)
+	processed_chunks = removeEmptyChunks(processed_chunks)
 
-	matches = re.findall("[^\s]+/[^\s]+", content, re.DOTALL)
-	print str(matches)
-
+	for pc in processed_chunks:
+		print pc
+		print "-----"
 
 def data_file_names(top_folder, folder):
 	path = top_folder + "/" + folder
@@ -37,10 +52,13 @@ def main():
 	mainfolder = "WSJ-2-12"
 	data_files = subfolder_names(mainfolder)
 
-	# for f in data_files:
-	# 	parse_single_file(f)
+	for f in data_files:
+		parse_single_file(f)
 
-	parse_single_file(data_files[0])
+	# parse_single_file(data_files[0])
+
+	e = Pos("Zara", 2000)
+	e.displayEmployee()
 
 	print "Ending execution..."
 
