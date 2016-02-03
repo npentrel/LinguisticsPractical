@@ -46,6 +46,7 @@ def subfolder_names(top_folder):
 	return all_data_files
 
 def main():
+	word_functions = {}
 	data = {}
 
 	mainfolder = "WSJ-2-12"
@@ -59,13 +60,27 @@ def main():
 		for word in chunk:
 			both = re.findall("[^\s/]+", word, re.DOTALL)
 			key = both[0]
-			if data.has_key(key) :
-				if not word in data[key] : 
-	 				data[key].append(word)
+			if word_functions.has_key(key) :
+				if not word in word_functions[key] : 
+	 				word_functions[key].append(word)
 			else :
-				data[key] = [word]
+				word_functions[key] = [word]
 
-	
+	for chunk in preprocessed_chunks:
+		for idx, word in enumerate(chunk):
+			if ((idx + 2) >= len(chunk)):
+				if (data.has_key(word)):
+					data[word].update(word, "")
+				else :
+					data[word] = Pos(word, [], 1)
+			else:
+				if (data.has_key(word)):
+					data[word].update(word, chunk[idx + 1])
+				else :
+					data[word] = Pos(word, [chunk[idx + 1]], 1)
+
+	for d in sorted(data):
+		data[d].display()
 
 	# if (LOGGING):
 	# 	for w in sorted(data):
