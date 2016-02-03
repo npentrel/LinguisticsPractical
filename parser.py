@@ -4,21 +4,14 @@ import re
 LOGGING = True
 
 
-
 def parse_single_file(fname):
 	with open(fname) as f:
 	    content = f.readlines()
-	for line in content:
-		no_data = False
-		if "===================" in line or line == "\n":
-			no_data = True
-			
-		if pattern = re.compile("^([A-Z][0-9]+)*$")
-pattern.match(string)
+	content = "".join(content)
 
+	matches = re.findall("[^\s]+/[^\s]+", content, re.DOTALL)
+	print str(matches)
 
-		if (not no_data):
-			print line
 
 def data_file_names(top_folder, folder):
 	path = top_folder + "/" + folder
