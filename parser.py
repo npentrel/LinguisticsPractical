@@ -53,15 +53,15 @@ def main():
 	for f in data_files:
 		preprocessed_chunks.extend(parse_single_file(f))
 
-	if (LOGGING):
-		for pc in preprocessed_chunks:
-			print pc
-			print "-----"	
+	# if (LOGGING):
+	# 	for pc in preprocessed_chunks:
+	# 		print pc
+	# 		print "-----"	
 
 	# parse_single_file(data_files[0])
 
-	e = Pos("Zara", 2000)
- 	e.displayEmployee()
+	pos = Pos("test", [], 0)
+ 	pos.display()
 
 	print "Ending execution..."
 

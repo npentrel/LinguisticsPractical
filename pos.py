@@ -2,15 +2,11 @@
 
 class Pos:
    'Common base class for all pos'
-   empCount = 0
 
-   def __init__(self, name, salary):
-      self.name = name
-      self.salary = salary
-      Pos.empCount += 1
+   def __init__(self, word, following_words, occurrences):
+      self.word = word
+      self.following_words = following_words
+      self.occurrences = occurrences
    
-   def displayCount(self):
-     print "Total Employee %d" % Pos.empCount
-
-   def displayEmployee(self):
-      print "Name : ", self.name,  ", Salary: ", self.salary
+   def display(self):
+     print "Pos %s , followed by %s, used: %d" %(self.word, self.following_words, self.occurrences)
