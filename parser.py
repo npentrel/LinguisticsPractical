@@ -58,7 +58,7 @@ def main():
 	# parse_single_file(data_files[0])
 
 	e = Pos("Zara", 2000)
-	e.displayEmployee()
+ 	e.displayEmployee()
 
 	print "Ending execution..."
 
