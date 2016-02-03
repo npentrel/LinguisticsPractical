@@ -23,10 +23,7 @@ def parse_single_file(fname):
 		matches = re.findall("[^\s]+/[^\s]+", chunk, re.DOTALL)
 		processed_chunks.append(matches)
 	processed_chunks = removeEmptyChunks(processed_chunks)
-
-	for pc in processed_chunks:
-		print pc
-		print "-----"
+	return processed_chunks
 
 def data_file_names(top_folder, folder):
 	path = top_folder + "/" + folder
@@ -52,8 +49,14 @@ def main():
 	mainfolder = "WSJ-2-12"
 	data_files = subfolder_names(mainfolder)
 
+	preprocessed_chunks = []
 	for f in data_files:
-		parse_single_file(f)
+		preprocessed_chunks.extend(parse_single_file(f))
+
+	if (LOGGING):
+		for pc in preprocessed_chunks:
+			print pc
+			print "-----"	
 
 	# parse_single_file(data_files[0])
 
