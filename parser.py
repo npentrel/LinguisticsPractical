@@ -98,7 +98,7 @@ def main():
 			p_cat_cat[data[d].word_pos()] = Catcat(data[d].word_pos(), data[d].following_categories())
 
 	for c in sorted(p_cat_cat):
-		print p_cat_cat[c].display()
+		p_cat_cat[c].display()
 
 	# if (LOGGING):
 	# 	for w in sorted(data):
