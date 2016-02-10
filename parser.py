@@ -3,6 +3,7 @@
 import os
 import re
 from pos import *
+from catcat import *
 
 LOGGING = True
 
@@ -45,6 +46,12 @@ def subfolder_names(top_folder):
 	# 	print "data_files found: " + str(all_data_files) 
 	return all_data_files
 
+def word_pos(word):
+	allmatches = re.findall("\/(.*)", word, re.DOTALL)
+  	pos = allmatches[0]
+  	return pos[0:]
+
+
 def main():
 	word_functions = {}
 	data = {}
@@ -81,6 +88,17 @@ def main():
 
 	for d in sorted(data):
 		data[d].display()
+
+	p_cat_cat = {}
+
+	for d in sorted(data):
+		if p_cat_cat.has_key(data[d].word_pos()):
+			p_cat_cat[data[d].word_pos()].update(data[d].following_categories())
+		else:
+			p_cat_cat[data[d].word_pos()] = Catcat(data[d].word_pos(), data[d].following_categories())
+
+	for c in sorted(p_cat_cat):
+		print p_cat_cat[c].display()
 
 	# if (LOGGING):
 	# 	for w in sorted(data):
